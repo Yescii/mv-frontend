@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function MV() {
-  const [data, setData] = useState([null]); //retirve data
+  const [data, setData] = useState([]); //retirve data
   // const retirveData = async () => {
   //   const response = await api.get("/mountains");
   //   return response.data;
@@ -24,26 +24,52 @@ function MV() {
       });
   };
 
-  const display = () => {
-    console.log(data[0].name);
-  };
-
   const deleteHandler = (id) => {
-    axios.delete(`https://jg-mv-project.herokuapp.com/${id}`);
+    // axios
+    //   .delete(`https://jg-mv-project.herokuapp.com/${id}`)
+    //   .then((resp) => resp.data);
+    axios
+      .delete(`https://jg-mv-project.herokuapp.com/${id}`)
+      .then((response) => {
+        console.log(response);
+      });
+    // make delete request to create Invenotry
+    // update the inventory
+    // getMVData();
   };
 
   const mv = data.map((ele, index) => {
     return (
-      <div classnName="card" key={data[index].id}>
+      <div
+        classnName="card"
+        style={{
+          width: "30vw",
+          height: "60vh",
+          borderStyle: "solid",
+          marginBottom: "2rem",
+          backgroundColor: "white",
+        }}
+      >
         <div classnName="img-sec">
-          <img src={data[index].img_url} alt={data[index].name} />
+          <img
+            className="image"
+            style={{ width: "100%", height: "45%" }}
+            src={ele.image_url}
+            alt={ele.name}
+          />
         </div>
 
         <div classnName="info-sec">
-          <p>{data[index].name}</p>
-          <p>{data[index].location}</p>
-          <p>{data[index].desc}</p>
-          <button onClick={deleteHandler(data[index.id])}> DELETE</button>
+          <p style={{ textTransform: "capitalize" }}>{ele.name}</p>
+          <p>{ele.location}</p>
+          <p>{ele.desc}</p>
+          <button
+            onClick={deleteHandler(ele.id)}
+            style={{ padding: ".5rem", backgroundColor: "#fe5f55" }}
+          >
+            {" "}
+            DELETE
+          </button>
         </div>
       </div>
     );
@@ -53,9 +79,7 @@ function MV() {
   return (
     <div className="MV">
       <h1>MV</h1>
-
-      <button onClick={display}></button>
-      <div>{mv}</div>
+      <div className="index">{mv}</div>
     </div>
   );
 }
