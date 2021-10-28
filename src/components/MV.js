@@ -65,7 +65,7 @@ function MV() {
           <p>{ele.desc}</p>
           <button
             onClick={deleteHandler(ele.id)}
-            style={{ padding: ".5rem", backgroundColor: "#fe5f55" }}
+            style={{ padding: ".5.5rem", backgroundColor: "#fe5f55" }}
           >
             {" "}
             DELETE
